@@ -6,13 +6,13 @@
 #    By: lhorefto <lhorefto@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/13 13:48:05 by lhorefto          #+#    #+#              #
-#    Updated: 2021/08/12 14:59:55 by lhorefto         ###   ########.fr        #
+#    Updated: 2021/08/22 18:37:40 by lhorefto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= so_long
+NAME			= cub3D
 
-SRCS =			main.c read.c free.c init.c errors.c
+SRCS =			CUB3D_updated.c init.c read.c player.c utils.c errors.c free.c
 				
 OBJS			= $(SRCS:.c=.o)
 
@@ -21,12 +21,12 @@ MLX_DIR			= mlx
 
 CC				= gcc
 RM				= rm -f
-HEADER			= solong.h
+HEADER			= cub3d.h
 CFLAGS			= -Wall -Wextra -Werror
 LDFLAGS			= -L$(MLX_DIR) -lft
 
 $(NAME):		$(OBJS)
-				$(CC) -o so_long $(CFLAGS) $(OBJS) libft/libft.a $(MLX_DIR)/libmlx_Linux.a -L/usr/include/X11/extensions -lX11 -lXext
+				$(CC) -o so_long $(CFLAGS) $(OBJS) libft/libft.a $(MLX_DIR)/libmlx_Linux.a -L/usr/include/X11/extensions -lX11 -lXext -lm
 
 all:			mlx_all $(NAME)
 

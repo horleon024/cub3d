@@ -6,7 +6,7 @@
 /*   By: lhorefto <lhorefto@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 14:11:54 by lhorefto          #+#    #+#             */
-/*   Updated: 2021/08/13 15:08:36 by lhorefto         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:17:45 by lhorefto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include <sys/types.h>
+# include <stdio.h>
 # include <math.h>
 # include "mlx/mlx.h"
 # include "libft/libft.h"
@@ -29,6 +30,12 @@
 # define PIX 256
 # define SCREENWIDTH 750
 # define SCREENHEIGHT 500
+#define CEIL 0x59bfff
+#define FLOOR 0x003300
+#define WWALL 0xff0000
+#define NWALL 0x00ff00
+#define EWALL 0x0000ff
+#define SWALL 0xffff00
 
 typedef struct s_img
 {
@@ -48,35 +55,15 @@ typedef struct s_ptrs
 	void	*win;
 }			t_ptrs;
 
-typedef struct s_player
+typedef struct	s_player
 {
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-	char	direction;
-}				t_player;
-
-typedef struct s_ray
-{
-	double	camera_x;
-	double	camera_y;
-	double	raydir_x;
-	double	raydir_y;
-	int		map_x;
-	int		map_y;
-	double	sidedist_x;
-	double	sidedist_y;
-	double	deltadist_x;
-	double	deltadist_y;
-	double	perpwalldist;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-}			t_ray;
+	int		posx;
+	int		posy;
+	float	O;
+	int		startx;
+	int		starty;
+	char	start_dir;
+}	t_player;
 
 typedef struct s_game
 {
@@ -89,12 +76,9 @@ typedef struct s_game
 	t_img			*we_wall;
 	t_ptrs			*ptrs;
 	t_player		*player;
-	t_ray			*ray;
-	double			time;
-	double			old_time;
 	char			**map2d;
-	int				map_lines;
-	int				map_line_length;
+	int				grid_h;
+	int				grid_w;
 }					t_game;
 
 t_game	*ft_init_game(void);

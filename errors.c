@@ -6,13 +6,13 @@
 /*   By: lhorefto <lhorefto@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:04:22 by lhorefto          #+#    #+#             */
-/*   Updated: 2021/08/12 17:26:55 by lhorefto         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:37:17 by lhorefto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_printerror(char *msg, t_game *game);
+void	ft_printerror(char *msg, t_game *game)
 {
 	printf("Error\n");
 	printf("%s\n", msg);

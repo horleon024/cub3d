@@ -6,7 +6,7 @@
 /*   By: lhorefto <lhorefto@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:04:19 by lhorefto          #+#    #+#             */
-/*   Updated: 2021/08/12 17:32:30 by lhorefto         ###   ########.fr       */
+/*   Updated: 2021/08/22 19:00:58 by lhorefto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_free_map2d(t_game *game)
 {
 	int	i;
 
-	i = game->map_lines;
+	i = game->grid_h;
 	if (i < 0)
 		return ;
 	while (i >= 0)
@@ -34,10 +34,6 @@ void	ft_free_exit(t_game *game)
 		exit(EXIT_FAILURE);
 	if (game->ptrs)
 		free(game->ptrs);
-	if (game->floor)
-		free(game->floor);
-	if (game->ceil)
-		free(game->ceil);
 	if (game->so_wall)
 		free(game->so_wall);
 	if (game->no_wall)
@@ -59,16 +55,6 @@ void	ft_free_exit(t_game *game)
 
 int	ft_close_clean(t_game *game)
 {
-	if (game->player->img.img_ptr)
-		mlx_destroy_image(game->ptrs->mlx, game->player->img.img_ptr);
-	if (game->exit->img.img_ptr)
-		mlx_destroy_image(game->ptrs->mlx, game->exit->img.img_ptr);
-	if (game->coll->img.img_ptr)
-		mlx_destroy_image(game->ptrs->mlx, game->coll->img.img_ptr);
-	if (game->floor->img_ptr)
-		mlx_destroy_image(game->ptrs->mlx, game->floor->img_ptr);
-	if (game->wall->img_ptr)
-		mlx_destroy_image(game->ptrs->mlx, game->wall->img_ptr);
 	if (game->img->img_ptr)
 		mlx_destroy_image(game->ptrs->mlx, game->img->img_ptr);
 	if (game->ptrs->win)

@@ -6,7 +6,7 @@
 /*   By: lhorefto <lhorefto@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 17:04:26 by lhorefto          #+#    #+#             */
-/*   Updated: 2021/08/13 12:44:15 by lhorefto         ###   ########.fr       */
+/*   Updated: 2021/08/22 18:59:53 by lhorefto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static char	*ft_get_path(char *line)
 {
 	int		i;
-	char	*path;
 
 	i = 0;
 	while (line[i] == ' ')
@@ -29,7 +28,7 @@ bool	ft_get_paths(char *path, t_game *game)
 	char	*line;
 
 	fd = open(path, O_RDONLY);
-	while (get_next_line(fd, &line) >= 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (!ft_strncmp(line, "NO ", 3))
 			game->no_wall->path = ft_get_path(line + 2);
@@ -78,17 +77,17 @@ void	ft_get_map_data(char *path, t_game *game)
 	int		fd;
 	char	*line;
 
-	game->map_lines = 0;
-	game->map_line_length = 0;
+	game->grid_h = 0;
+	game->grid_w = 0;
 	fd = open(path, O_RDONLY);
-	while (get_next_line(fd, &line) >= 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (ft_valid_map_line(line))
 		{
 			tmp = ft_strlen(line);
-			if (tmp > game->map_line_length)
-				game->map_line_length = tmp;
-			game->map_lines++;
+			if (tmp > game->grid_w)
+				game->grid_w = tmp;
+			game->grid_h++;
 		}
 		free(line);
 	}
@@ -104,7 +103,7 @@ bool	ft_get_2dmap(char *path, t_game *game)
 
 	i = 0;
 	fd = open(path, O_RDONLY);
-	while (get_next_line(fd, &line) >= 0)
+	while (get_next_line(fd, &line) > 0)
 	{
 		if (ft_valid_map_line(line))
 		{
@@ -113,8 +112,9 @@ bool	ft_get_2dmap(char *path, t_game *game)
 		}
 		free(line);
 	}
-	game->map2d[i] = '\0';
+	game->map2d[i] = ft_strdup(line);
+	game->map2d[i + 1] = 0;
 	close(fd);
 	free(line);
-	return (ft_map_is_valid(game->map2d, game->map_lines));
+	return (ft_map_is_valid(game->map2d, game->grid_h));
 }
